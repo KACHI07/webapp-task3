@@ -44,15 +44,40 @@ resource "azurerm_app_service" "as" {
   resource_group_name = azurerm_resource_group.rg.name
   app_service_plan_id = azurerm_app_service_plan.asp.id
 
-  site_config {
-    linux_fx_version                    = "DOCKER|alpine:latest"
-    always_on                           = "true"
+   site_config {
+    linux_fx_version = "DOCKER|nginx:latest"
   }
 
 
 
   tags = {
-    image = "Babayega"
+    image = "nginx"
+
+  }
+
+  connection_string {
+    name  = "Database"
+    type  = "SQLServer"
+    value = "Server=some-server.mydomain.com;Integrated Security=SSPI"
+  }
+
+}
+
+resource "azurerm_app_service" "as1" {
+
+   name               = "WebAppX-as1"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  app_service_plan_id = azurerm_app_service_plan.asp.id
+
+   site_config {
+    linux_fx_version = "DOCKER|wordpress:latest"
+  }
+
+
+
+  tags = {
+    image = "wordpress"
 
   }
 
