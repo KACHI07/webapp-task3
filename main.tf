@@ -81,11 +81,7 @@ resource "azurerm_app_service" "as1" {
 
   }
 
-  connection_string {
-    name  = "Database"
-    type  = "SQLServer"
-    value = "Server=some-server.mydomain.com;Integrated Security=SSPI"
-  }
+  
 
 }
 
