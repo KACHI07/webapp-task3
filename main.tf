@@ -81,6 +81,37 @@ resource "azurerm_app_service" "as1" {
 
   }
 
+connection_string {
+    name  = "Database"
+    type  = "SQLServer"
+    value = "Server=some-server.mydomain.com;Integrated Security=SSPI"
+  }
+  
+
+}
+resource "azurerm_app_service" "as2" {
+
+   name               = "WebAppX-as2"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  app_service_plan_id = azurerm_app_service_plan.asp.id
+
+   site_config {
+    linux_fx_version = "DOCKER|percona"
+  }
+
+
+
+  tags = {
+    image = "percona"
+
+  }
+
+connection_string {
+    name  = "Database"
+    type  = "SQLServer"
+    value = "Server=some-server.mydomain.com;Integrated Security=SSPI"
+  }
   
 
 }
